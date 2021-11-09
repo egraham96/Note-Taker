@@ -18,7 +18,6 @@ const read = util.promisify(fs.readFile);
     })}
   );
   
-  
 //GET Route for retrieving all the tips
   app.get('/api/tips', (req, res) => {
       console.info(`${req.method} request received for tips`);
@@ -38,7 +37,6 @@ const read = util.promisify(fs.readFile);
           id: uuid(),
         };
 
-    
         readAndAppend(newNote, './db/db.json');
 
         // Create response
