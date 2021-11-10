@@ -1,7 +1,7 @@
 # Homework Assignment 11-Note Taker
 
 ## Description:
-This week's homework required us to create an application that would allow users to create and save notes, such as to-do list items. The notes contain a Title field and text body. This application uses an Express.js back end that saves and retrieves note data from a JSON file. The front end of the application utilizes HTML, CSS and Javascript. The entire application is deployed and available for use on Heroku via the following link: 
+This week's homework required us to create an application that would allow users to create and save notes, such as to-do list items. The notes contain a Title field and text body. This application uses an Express.js back end that saves and retrieves note data from a JSON file. The front end of the application utilizes HTML, CSS and Javascript. The entire application is deployed and available for use on Heroku via the following link: https://salty-chamber-85313.herokuapp.com/.
 
 ## Installation Instructions:
 Ideally, you would use this application by visting the deployed application link on Heroku. If you would like to use this application without Heroku, use the following steps:
