@@ -55,13 +55,11 @@ module.exports = function(app) {
 
 //Delete Route for a Note
         app.delete('/api/notes/:id', (req, res) => {
+            const id = req.params.id;
             fs.readFile('./db/db.json', (err, data) => {
-                if (err) {
-                  console.error(err);
-                } else {
                     results=JSON.parse(data);
-                    const newresults=results.filter(data => data.id != id)
-                }fs.writeFile ('./db/db.json', JSON.stringify(newresults), (err) => {
+                    const newresults =results.filter(data => data.id != id);
+                fs.writeFile ('./db/db.json', JSON.stringify(newresults), (err) => {
                     if (err) {
                       console.error(err);
                     }else{
