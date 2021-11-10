@@ -1,14 +1,14 @@
 const fs = require('fs');
-const { title } = require('process');
 const util = require('util');
-const uuid = require('../helpers/uuid');
+const uuid=require('../helpers/uuid');
 
-//Could have also grabbed and read the JSON file using just the FS readFile() method. But,this method is more sophisticated and does not slow down application if reading large files.
-const read = util.promisify(fs.readFile);
+
+// ROUTING
+module.exports = function(app) {
 
 // GET Route for Notes Page
   app.get('/api/notes', (req, res) => {
-    read("./db/db.json",(err, data) => {
+    fs.readFile("./db/db.json",(err, data) => {
         if (err) {
           console.error(err);
         } else {
@@ -18,52 +18,61 @@ const read = util.promisify(fs.readFile);
     })}
   );
   
-//GET Route for retrieving all the tips
-  app.get('/api/tips', (req, res) => {
-      console.info(`${req.method} request received for tips`);
-      readFromFile('./db/tips.json').then((data) => res.json(JSON.parse(data)));
-    });
     
-// POST Route for a new UX/UI tip
+// POST Route for a new note
    app.post('/api/notes', (req, res) => {
-       console.info(`${req.method} request received to add a review`);
-    
-      const { noteTitle, noteText } = req.body;
-    
-      if (noteTitle, noteText) {
-        const newNote = {
-          noteTitle,
-          noteText,
-          id: uuid(),
+       console.info(`${req.method} request received to add a note`);
+       newNote=req.body;
+       newNote.id=uuid();
+       console.log(newNote);
+
+       fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+        } else {
+        //Convert string into JSON Object
+        const parsedNotes = JSON.parse(data);
+        // Add a new review
+        parsedNotes.push(newNote);
+
+        const response={
+            status: "success",
+            body: newNote,
         };
+        // Write updated reviews back to the file
+        fs.writeFile(
+            './db/db.json',
+            JSON.stringify(parsedNotes), (err) => {
+                if (err) {
+                  console.error(err);
+                }else{
+                    res.json(response);
+                }
+              })
+            }
+          })
+        });
 
-        readAndAppend(newNote, './db/db.json');
+//Delete Route for a Note
+        app.delete('/api/notes/:id', (req, res) => {
+            fs.readFile('./db/db.json', (err, data) => {
+                if (err) {
+                  console.error(err);
+                } else {
+                    results=JSON.parse(data);
+                    const newresults=results.filter(data => data.id != id)
+                }fs.writeFile ('./db/db.json', JSON.stringify(newresults), (err) => {
+                    if (err) {
+                      console.error(err);
+                    }else{
+                      res.sendStatus(200);
+                    }
+                  })
+                })
+              });
+           
 
-        // Create response
-        const response = {
-        status: "success",
-        body: newNote,
-    };
-        response.json(`Tip added successfully 🚀`);
-      } else {
-        response.error('Error in creating new note');
-      }
-    });
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+            }
+    
+                   
