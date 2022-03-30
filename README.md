@@ -1,4 +1,4 @@
-#Note Taker
+# Note Taker 
 
 ## Description:
 This application allows users to create and save notes, such as to-do list items. The notes contain a title field and text body. The application uses an Express.js back end that saves and retrieves note data from a JSON file. The front end of the application utilizes HTML, CSS and Javascript. The entire application is deployed and available for use on Heroku here: https://salty-chamber-85313.herokuapp.com/.
